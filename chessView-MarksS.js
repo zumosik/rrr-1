@@ -5,8 +5,9 @@ class Chessboard extends SimpleEvent {
     this.container = container;
     this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     this.container.appendChild(this.svg);
-    this.englishAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-    ];
+
+    this.englishAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",]
+    this.recolored = []
   }
 
   
@@ -19,9 +20,35 @@ class Chessboard extends SimpleEvent {
   model_check_moves(x,y,p) {
     this.dispatchEvent("check_moves", [x,y,p]);
   }
+
+  recolor(arr){
+
+
+    
+
+
+    arr.forEach(el => {
+      const obj = document.getElementById(`rect-${el.x}-${el.y}`)
+      this.recolored.push({obj : `rect-${el.x}-${el.y}`, color : obj.style.fill})
+      
+      if (el.capture) {
+        obj.style.fill = "#dd998b"
+      }else {
+        obj.style.fill = "#f7f769"
+      }
+    });
+  }
   
 
-  ClickHandler(x,y,p) {
+  click_handler(x,y,p) {
+    console.clear()
+    this.recolored.forEach(el => {
+      document.getElementById(el.obj).style.fill = el.color;
+    });
+
+    console.log(this.recolored)
+    this.recolored = []
+    console.log(this.recolored)
 
     let color = ""
 
@@ -142,7 +169,7 @@ class Chessboard extends SimpleEvent {
 
 
     obj.addEventListener("click", (e) => {
-      this.ClickHandler(x,y,{player: (piece.player -1).toString(), type:piece.type})
+      this.click_handler(x,y,{player: (piece.player -1).toString(), type:piece.type})
     })
   }
 }

@@ -280,7 +280,7 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
     if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) {
       return moves;
     }
-    const squareState = getSquareState(board, posX, posY);
+    const squareState = getSquareState(board, x, y);
     if (squareState === null) {
       moves.push({ x: x, y: y, capture: false });
       

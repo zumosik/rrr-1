@@ -7,25 +7,7 @@
     <script src="chessView-Kristaps.js" defer></script>
     <script src="chessView-Reinis.js" defer></script>
     <script src="simpleEvent.js"></script>
-    <script type="module">
-      const b = new Board(8, 8);
-
-      const ch = new Chessboard(document.getElementById("containerMS"));
-
-      b.addEventListener("update", (board) => ch.update(board));
-
-      ch.addEventListener("move", (txtMove) => b.movePieceTxt(txtMove));
-      ch.addEventListener("check_moves", (args) => {
-        console.log(b.enumerateMoves(args[0], args[1], args[2]));
-      });
-
-      b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-
-      document.getElementById("btnMakeMove").addEventListener("click", (e) => {
-        //console.log(document.getElementById("move").value);
-        ch.model_move(document.getElementById("move").value);
-      });
-    </script>
+    <script src="bridge.js"></script>
   </head>
 
   <body>
