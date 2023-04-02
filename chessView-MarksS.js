@@ -22,14 +22,12 @@ class Chessboard extends SimpleEvent {
   }
 
   recolor(arr){
-
-
-    
-
+    this.recolored.forEach(el => {
+      document.getElementById(el.obj).style.fill = el.color;
+    });
 
     arr.forEach(el => {
       const obj = document.getElementById(`rect-${el.x}-${el.y}`)
-      this.recolored.push({obj : `rect-${el.x}-${el.y}`, color : obj.style.fill})
       
       if (el.capture) {
         obj.style.fill = "#dd998b"
@@ -42,13 +40,8 @@ class Chessboard extends SimpleEvent {
 
   click_handler(x,y,p) {
     console.clear()
-    this.recolored.forEach(el => {
-      document.getElementById(el.obj).style.fill = el.color;
-    });
+    
 
-    console.log(this.recolored)
-    this.recolored = []
-    console.log(this.recolored)
 
     let color = ""
 
@@ -106,12 +99,16 @@ class Chessboard extends SimpleEvent {
         rect.setAttribute("x", i * 50);
         rect.setAttribute("y", j * 50);
         rect.setAttribute("id", `rect-${i}-${j}`);
+        let fill = ""
+        
         if (green) {
-          rect.style.fill = "#799658";
+          fill = "#799658";
         } else {
-          rect.style.fill = "#eeeed3";
+          fill = "#eeeed3";
         }
         green = !green;
+        rect.style.fill = fill;
+        this.recolored.push({obj : `rect-${i}-${j}`, color : fill})
         this.svg.appendChild(rect);
       }
       green = !green;

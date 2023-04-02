@@ -271,29 +271,31 @@ function enumerateMoves(board, x, y, piece) {
 function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
   // Returns array of legal moves, when moving by adding (dx, dy): [{x:int, y:int, capture:bool}]
   const moves = [];
+  let posX = x;
+  let posY = y;
   const sizeX = board.length;
   const sizeY = board[0].length;
-
   while (true) {
-    x += dx;
-    x += dy;
-    if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) {
+    posX += dx;
+    posY += dy;
+    if (posX < 0 || posY < 0 || posX >= sizeX || posY >= sizeY) {
       return moves;
     }
-    const squareState = getSquareState(board, x, y);
+    const squareState = getSquareState(board, posX, posY);
     if (squareState === null) {
-      moves.push({ x: x, y: y, capture: false });
-      
-      if (onlyOnce) {
-        return moves;
-      }
-      
+      moves.push({ x: posX, y: posY, capture: false });
       continue;
     }
     if (squareState.player != player) {
-      moves.push({ x: x, y: y, capture: true });
+      moves.push({ x: posX, y: posY, capture: true });
+      return moves;
     }
-    return moves;
+    if (squareState.player == player) {
+      return moves;
+    }
+    if (onlyOnce) {
+      return moves;
+    }
   }
 }
 
