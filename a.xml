@@ -1,0 +1,9 @@
+<board> 
+  <player>white</player>
+  <moveCount>1</moveCount>
+
+  <pieces>
+    <p coords="a1" color="black">P</p>
+    <p coords="h8" color="white">Q</p>
+  </pieces>
+</board>

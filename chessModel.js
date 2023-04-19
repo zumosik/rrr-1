@@ -36,6 +36,14 @@ class Board  extends SimpleEvent  {
     }
   }
 
+  createBoard(board) {
+    this.board = board;
+  }
+
+  save() {
+    this.dispatchEvent("save", this);
+  }
+
 
   update() {
     //this.eventHandlers.update.forEach(eh => eh(this));
